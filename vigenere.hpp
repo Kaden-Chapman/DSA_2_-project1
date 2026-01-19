@@ -13,3 +13,4 @@ class VigenereCipher {
         string encrypt(const string& plaintext);
         string decrypt(const string& ciphertext);
 };
+#endif

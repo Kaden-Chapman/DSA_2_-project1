@@ -2,10 +2,9 @@
 #define HASHTABLE_HPP
 #include <string>
 #include "Node.hpp"
-using string;
 class Hashtable {
     private:
-        static const int tableSize = 101; // A prime number for better distribution
+        static const int tableSize = 101;
         Node* table[tableSize];
 
         int hashFunction(const string& userid);
