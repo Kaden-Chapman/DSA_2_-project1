@@ -4,7 +4,7 @@
 #include "Node.hpp"
 class Hashtable {
     private:
-        static const int tableSize = 101;
+        static const int tableSize = 1000;
         Node* table[tableSize];
 
         int hashFunction(const string& userid);
