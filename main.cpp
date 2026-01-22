@@ -39,7 +39,7 @@ int main() {
 
     cout << "LEGAL PASSWORD TESTS \n";
     for (int idx : indices) {
-        if (idx >= rawEntries.size()) continue;
+        if (idx >= static_cast<int>(rawEntries.size())) continue;
 
         const string& u = rawEntries[idx].first;
         const string& p = rawEntries[idx].second;
@@ -60,7 +60,7 @@ int main() {
 
     cout << "\n ILLEGAL PASSWORD TESTS \n";
     for (int idx : indices) {
-        if (idx >= rawEntries.size()) continue;
+        if (idx >= static_cast<int>(rawEntries.size())) continue;
 
         const string& u = rawEntries[idx].first;
         string illegalPass = rawEntries[idx].second;

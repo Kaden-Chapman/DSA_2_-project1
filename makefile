@@ -1,13 +1,13 @@
-CXX=g++
-CXXFLAGS=-std=c++14 -Wall -g
+CXX = g++
+CXXFLAGS = -std=c++14 -Wall -g
 
-main: main.o Node.o Hashtable.o vignere.o cipher.o vignere.o
-	$(CXX) -o $@ $^
+OBJS = main.o Node.o Hashtable.o vigenere.o cipher.o
 
-	%.0:o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $<
+main: $(OBJS)
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
-	$(RM) a.out *.o *.gch *.dSYM main rawData.txt encrypted.txt 
-
-	
+	rm -f a.out *.o *.gch *.dSYM main rawdata.txt encrypteddata.txt
