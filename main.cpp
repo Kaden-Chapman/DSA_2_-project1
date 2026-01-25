@@ -35,54 +35,55 @@ int main() {
     rawFile.close();
 
     // test
-    int indices[] = {0, 2, 4, 6, 8};
+int indices[] = {0, 2, 4, 6, 8};
 
-    cout << "LEGAL PASSWORD TESTS \n";
-    for (int idx : indices) {
-        if (idx >= static_cast<int>(rawEntries.size())) continue;
+cout << "Legal:\n";
+cout << "Userid\tPassword(file)\tPassword(table/un)\tResult\n";
 
-        const string& u = rawEntries[idx].first;
-        const string& p = rawEntries[idx].second;
+for (int idx : indices) {
+    if (idx >= static_cast<int>(rawEntries.size())) continue;
 
-        Node* node = hashtable.search(u);
-        if (!node) {
-            cout << "User " << u << " not found in hash table.\n";
-            continue;
-        }
+    const string& userid = rawEntries[idx].first;
+    const string& plaintext = rawEntries[idx].second;
 
-        string encryptedAttempt = vigenereEncrypt(p);
-        bool match = (encryptedAttempt == node->encryptedPassword);
+    Node* node = hashtable.search(userid);
+    if (!node) continue;
 
-        cout << "User: " << u
-             << " legal password -> "
-             << (match ? "MATCH" : "NO MATCH") << "\n";
+    string encryptedAttempt = vigenereEncrypt(plaintext);
+    bool match = (encryptedAttempt == node->encryptedPassword);
+
+    cout << userid << "\t"
+         << plaintext << "\t"
+         << node->encryptedPassword << "\t"
+         << (match ? "match" : "no match")
+         << "\n";
+}
+
+cout << "\nIllegal:\n";
+cout << "Userid\tPassword(mod)\tPassword(table/un)\tResult\n";
+
+for (int idx : indices) {
+    if (idx >= static_cast<int>(rawEntries.size())) continue;
+
+    const string& userid = rawEntries[idx].first;
+    string illegalPass = rawEntries[idx].second;
+
+    Node* node = hashtable.search(userid);
+    if (!node) continue;
+
+    // modify first letter
+    if (!illegalPass.empty()) {
+        illegalPass[0] = (illegalPass[0] == 'a') ? 'b' : 'a';
     }
 
-    cout << "\n ILLEGAL PASSWORD TESTS \n";
-    for (int idx : indices) {
-        if (idx >= static_cast<int>(rawEntries.size())) continue;
+    string encryptedAttempt = vigenereEncrypt(illegalPass);
+    bool match = (encryptedAttempt == node->encryptedPassword);
 
-        const string& u = rawEntries[idx].first;
-        string illegalPass = rawEntries[idx].second;
-
-        Node* node = hashtable.search(u);
-        if (!node) {
-            cout << "User " << u << " not found in hash table.\n";
-            continue;
-        }
-
-        // Changes first letter to test illegal password
-        if (!illegalPass.empty()) {
-            illegalPass[0] = (illegalPass[0] == 'a') ? 'b' : 'a';
-        }
-
-        string encryptedAttempt = vigenereEncrypt(illegalPass);
-        bool match = (encryptedAttempt == node->encryptedPassword);
-
-        cout << "User: " << u
-             << " illegal password -> "
-             << (match ? "MATCH (ERROR)" : "NO MATCH (CORRECT)") << "\n";
-    }
-
+    cout << userid << "\t"
+         << illegalPass << "\t"
+         << node->encryptedPassword << "\t"
+         << (match ? "match (ERROR)" : "no match")
+         << "\n";
+}
     return 0;
 }
