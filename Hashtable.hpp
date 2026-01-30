@@ -1,10 +1,11 @@
+// Kaden Chapman
 #ifndef HASHTABLE_HPP
 #define HASHTABLE_HPP
 #include <string>
 #include "Node.hpp"
 class Hashtable {
     private:
-        static const int tableSize = 1000;
+        static const int tableSize = 20;
         Node* table[tableSize];
 
         int hashFunction(const string& userid);

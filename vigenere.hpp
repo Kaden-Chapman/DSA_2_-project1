@@ -1,3 +1,4 @@
+// Kaden Chapman
 #ifndef VIGENERE_HPP
 #define VIGENERE_HPP
 #include <string>
