@@ -7,7 +7,6 @@ using namespace std;
 
 void Cipher::generateData(const string& namesFile, const string& rawFile)
 {
-    cout << "Generating raw data file from names file: " << namesFile << endl;
     ifstream infile(namesFile);
     ofstream outfile(rawFile);
 
